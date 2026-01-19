@@ -30,7 +30,7 @@ class UserController {
 
     private final UserServiceImpl userService;
 
-    private final UserMapper userMapper;
+    private final pl.wsb.fitnesstracker.user.internal.UserMapper userMapper;
 
     ///// TEST
     /**
@@ -92,7 +92,7 @@ class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto createUser(@RequestBody UserDto userDto) {
-        User user = new User(userDto.firstName(), userDto.lastName(), userDto.birthdate(), userDto.email());
+        User user = new User(userDto.getFirstName(), userDto.getLastName(), userDto.getBirthdate(), userDto.getEmail());
         User createdUser = userService.createUser(user);
         return userMapper.toDto(createdUser);
     }
@@ -158,7 +158,7 @@ class UserController {
     public UserDto updateUser(@PathVariable Long userId, @RequestBody UserDto userDto) {
         userService.getUser(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        User updatedUser = new User(userDto.firstName(), userDto.lastName(), userDto.birthdate(), userDto.email());
+        User updatedUser = new User(userDto.getFirstName(), userDto.getLastName(), userDto.getBirthdate(), userDto.getEmail());
         updatedUser.setId(userId);
         userService.updateUser(updatedUser);
         return userMapper.toDto(updatedUser);

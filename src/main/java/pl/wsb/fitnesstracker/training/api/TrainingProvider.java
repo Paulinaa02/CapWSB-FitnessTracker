@@ -1,26 +1,35 @@
 package pl.wsb.fitnesstracker.training.api;
 
-import java.util.Optional;
+import pl.wsb.fitnesstracker.training.api.TrainingDto;
+
 import java.util.List;
+import java.util.Optional;
 
-
+/**
+ * Contract for providing training data to API layer.
+ */
 public interface TrainingProvider {
 
     /**
-     * Retrieves a training based on their ID.
-     * If the user with given ID is not found, then {@link Optional#empty()} will be returned.
+     * Retrieves a training by its ID.
      *
-     * @param trainingId id of the training to be searched
-     * @return An {@link Optional} containing the located Training, or {@link Optional#empty()} if not found
+     * @param trainingId training identifier
+     * @return Optional training DTO
      */
-    Optional<Training> getTraining(Long trainingId);
+    Optional<TrainingDto> getTraining(Long trainingId);
 
     /**
      * Retrieves all trainings.
      *
-     * @return list of all trainings
+     * @return list of all training DTOs
      */
-    List<Training> getAllTrainings();
+    List<TrainingDto> getAllTrainings();
 
+    /**
+     * Retrieves trainings assigned to a given user.
+     *
+     * @param userId user identifier
+     * @return list of user trainings as DTOs
+     */
+    List<TrainingDto> getTrainingsByUserId(Long userId);
 }
-
